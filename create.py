@@ -106,6 +106,6 @@ def push():
     cmd(f"git push")
 targeturl = 'https://www.huya.com/wanzi'
 tilte = 'test'
-videoFileList = ['test.mp4']
+videoFileList = ['2.mp4']
 getJson(targeturl,tilte,videoFileList)
 push()

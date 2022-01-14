@@ -1,0 +1,15 @@
+<div id="dplayer" autoplay=true></div>
+<script src="hls.js"></script>
+<script src="DPlayer.min.js"></script>
+<script>
+    const dp = new DPlayer({
+    container: document.getElementById('dplayer'),
+    video: {
+        url: 'https://cdn.jsdelivr.net/gh/popoYSL/adssdas/v/1a156a436a2d37e2343ac6bd9cda5686/index.m3u8',
+        thumbnails: 'https://cdn.jsdelivr.net/gh/popoYSL/adssdas/v/1a156a436a2d37e2343ac6bd9cda5686/thumb.png',
+        pic: 'https://cdn.jsdelivr.net/gh/popoYSL/adssdas/v/1a156a436a2d37e2343ac6bd9cda5686/thumb.png',
+        type: 'hls',
+    },
+    });
+dp.play()
+</script>
