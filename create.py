@@ -103,7 +103,7 @@ def getLink(video_path):
     return linkid,link,thumbUrl,createTime
 def push():
     cmd(f"git add .")
-    cmd(f"git commit -m 'v'")
+    cmd(f"git commit -m 'update'")
     cmd(f"git push")
 targeturl = 'https://www.huya.com/wanzi'
 tilte = 'test'
