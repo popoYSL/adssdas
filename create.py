@@ -1,3 +1,5 @@
+import imp
+from multiprocessing.spawn import import_main_path
 import time
 import subprocess
 import hashlib
@@ -8,7 +10,7 @@ from turtle import tilt
 import requests
 from bs4 import BeautifulSoup
 import os
-
+import copy
 def huya_message(targeturl):
     req = requests.get(url = targeturl)
     html = req.text
@@ -41,7 +43,6 @@ def getJson(targeturl,tilte,videoFileList):
         fileDict = {}
         firstFileId  = ''
         for file in videoFileList:
-            
             linkid,link,thumbUrl,createTime = getLink(file)
             fileDict['achorname'] = achorname
             fileDict['subscribe'] = subscribe
@@ -61,6 +62,7 @@ def getJson(targeturl,tilte,videoFileList):
                 fileDict["firstLinkId"] = firstFileId
                 firstFile = fileDict
             fileList.append(fileDict)
+            fileDict = copy.deepcopy(fileDict)
         indexList.append(firstFile)
         with open(os.path.join('json',firstFileId+'.json'),"w",encoding="utf-8") as f:
             json.dump(fileList,f)
