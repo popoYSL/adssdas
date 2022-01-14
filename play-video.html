@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正在加载中</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <!-- 网站显示页logo图标 -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+</head>
+<body>
+    <nav class="flex-div">
+        <div class="nav-left flex-div">
+            <!-- <img src="images/menu.png" class="menu-icon"> -->
+            <a href="index.html"><img src="images/logo.png" class="logo"></a>
+        </div>
+        <div class="nav-middle">
+            <input type="image" img src="images/search.png" onclick="{Open()}" class="search-icon"/>
+            <input type="text" id="myInput" onkeyup="SearchFunction()" onkeydown="if(event.keyCode==13) {OpenWinFunction()}" placeholder="搜索...">
+            <ul id="myUL">
+            </ul>
+        </div>
+        <!-- <div class="nav-middle flex-div">
+            <div class="search-box flex-div">
+                <input type="text" placeholder="Search">
+                <img src="images/search.png" class="search-icon">
+            </div>
+            <img src="images/voice-search.png" class="mic-icon">
+        </div> -->
+        <div class="nav-right flex-div">
+            <input type="image" img src="images/search.png" onclick="{Open()}"/>
+            <!-- <img src="images/upload.png">
+            <img src="images/more.png">
+            <img src="images/notification.png">
+            <img src="images/Jack.png" class="user-icon"> -->
+        </div>
+    </nav>
+    <div class="container play-container">
+        <div class="row">
+            <div class="play-video">
+                <!-- <video controls autoplay>
+                    <source src="https://streamtape.com/v/vDq2O2VJOKuDXp/bananafever.bailey.brooke.part.2.mp4" type="video/mp4"> 
+                </video> -->
+                <div id="video"></div>
+                <!-- <iframe src=""  id="video" width="800" height="450" allowfullscreen allowtransparency allow="autoplay" scrolling="no" frameborder="0"></iframe> -->
+                <div class="tags">
+                    <a href="https://www.huya.com/wanzi">#丸子呦</a>
+                    <a href="https://www.huya.com">#虎牙直播</a>
+                </div>
+                <h3 id="vid-title"></h3>
+                <div class="play-video-info">
+                    <p id="createTime"></p>
+                    <div>
+                        <!-- <a href=""><img src="images/like.png">125</a> -->
+                        <!-- <div input type="button" id='canvas1' onclick="togglePath1()"></div>
+                        <div input type="button" id='canvas2' onclick="togglePath2()"></div> -->
+                        <!-- <a href=""><img src="images/dislike.png">2</a> -->
+                        <!-- <a href=""><img src="images/share.png">Share</a>
+                        <a href=""><img src="images/save.png">Save</a> -->
+                    </div>
+                </div>
+                <hr>
+                <div class="publisher">
+                    <img id = "avatar-img" src="">
+                    <div>
+                        <p><button id="achornameChannnel" type="button" onclick="OpenWinByfilter()"></button></p>
+                        <!-- <p>丸子呦</p> -->
+                        <span id="subscribe"></span>
+                    </div>
+                    <!-- <button type="button">Subscribe</button> -->
+                </div>
+                <div class="vid-description">
+                    <p>如有问题，请联系删除</p>
+                    <a href="https://www.huya.com/wanzi" style="color: blue;">https://www.huya.com/wanzi</a>
+                    <hr>
+                    <!--评论显示区，请插入合适的位置-->
+                    <div class="comment"></div>
+
+                </div>
+            </div>
+            <div class="right-sidebar"  id = "sidebar">
+                
+            </div>
+        </div>
+    </div>
+    <script src="hls.js"></script>
+    <script src="DPlayer.min.js"></script>
+    <script type="text/javascript" src="js/getUrlParam.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/addPlayVdeoInfo.js"></script>  
+    <script type="text/javascript" src="js/raphael.min.js"></script>  
+    <script type="text/javascript" src="js/like.js"></script>
+    <script type="text/javascript" src="js/resizeIframe.js"></script>
+    <script type="text/javascript" src="js/observer.js"></script>
+    <script type="text/javascript" src="js/commonScript.js"></script>
+    <script type="text/javascript" src="js/Valine.min.js"></script>
+    <script type="text/javascript" src="js/av-min.js"></script>
+    <script type="text/javascript" src="js/comment.js"></script>
+</body>
+</html>
