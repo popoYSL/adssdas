@@ -86,7 +86,7 @@ def getLink(video_path):
     mkdir(file_path)
     fileName = video_path[:-3]
     video_ts = fileName+"ts"
-    m3u8_path= os.path.join(file_path,fileName+"m3u8")
+    m3u8_path= os.path.join(file_path,"index.m3u8")
 
     cmd_thumb = f'ffmpeg -y -i {video_path} -vf  "thumbnail,scale=640:360" -frames:v 1 {file_path}/thumb.png'
     cmd_str1 = f'ffmpeg -y -i {video_path} -vcodec copy -acodec copy -vbsf h264_mp4toannexb {video_ts}'
@@ -98,7 +98,6 @@ def getLink(video_path):
     linkid = base64_video_path
     link = f'https://cdn.jsdelivr.net/gh/popoYSL/adssdas/v/{base64_video_path}/index.m3u8'
     createTime = str(get_FileCreateTime(video_path))
-    os.remove(video_path)
     os.remove(video_ts)
     return linkid,link,thumbUrl,createTime
 def push():
