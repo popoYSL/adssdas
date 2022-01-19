@@ -1,12 +1,12 @@
 var a = UrlParam.paramValues("a");
 var b = UrlParam.paramValues("b");
 
-document.getElementById('video').src = 'https://cdn.jsdelivr.net/gh/popoYSL/adssdas/v/'+a+'/index.m3u8'
+document.getElementById('video').src = 'https://cdn.jsdelivr.net/gh/popoYSL/adssdas/v/'+a+'/index.m3u8?123456.key'
 $(function(){
 $.getJSON('json/'+b+".json",function(data){
 document.title = data[0]['folderName'];
-document.getElementById('vid-title').innerText=data[0]['folderName'];
-document.getElementById('createTime').innerText="发布时间："+data[0]["created_at"];
+document.getElementById('vid-createTimetitle').innerText=data[0]['folderName'];
+document.getElementById('').innerText="发布时间："+data[0]["created_at"];
 document.getElementById('avatar-img').src = data[0]['avatar-img']
 document.getElementById('subscribe').innerText = data[0]['subscribe']
 document.getElementById('achornameChannnel').innerHTML = data[0]["achorname"]

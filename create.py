@@ -1,4 +1,3 @@
-import imp
 from multiprocessing.spawn import import_main_path
 import time
 import subprocess
@@ -12,12 +11,17 @@ from bs4 import BeautifulSoup
 import os
 import copy
 def huya_message(targeturl):
-    req = requests.get(url = targeturl)
-    html = req.text
-    bf = BeautifulSoup(html,'lxml')
-    achorname = bf.find_all(class_ = 'host-name')[0].text
-    subscribe = bf.find_all(id='activityCount', class_ = 'subscribe-count')[0].text
-    avatarImg = bf.find_all(id='avatar-img')[0].get('src')
+    try:
+        req = requests.get(url = targeturl)
+        html = req.text
+        bf = BeautifulSoup(html,'lxml')
+        achorname = bf.find_all(class_ = 'host-name')[0].text
+        subscribe = bf.find_all(id='activityCount', class_ = 'subscribe-count')[0].text
+        avatarImg = bf.find_all(id='avatar-img')[0].get('src')
+    except:
+        achorname = 'popo'
+        subscribe = '12321312'
+        avatarImg = 'images/Jack.png'
     return achorname,formatSubNum(subscribe),avatarImg
 def formatSubNum(subNum):
     subNum = int(subNum)
@@ -35,9 +39,12 @@ def get_FileCreateTime(filePath):
 
 def getJson(targeturl,videoDictList):
     achorname,subscribe,avatarImg = huya_message(targeturl)
-    indexList = []
-    with open(os.path.join('json','index.json'),'r') as load_f:
-        indexList = json.load(load_f)
+    
+    try:
+        with open(os.path.join('json','index.json'),'r') as load_f:
+            indexList = json.load(load_f)
+    except:
+        indexList = []
     mkdir('json')
     for videoInfo in videoDictList:
         tilte = videoInfo['title']
@@ -93,19 +100,19 @@ def getLink(video_path):
     mkdir(file_path)
     fileName = video_path[:-3]
     video_ts = fileName+"ts"
-    m3u8_path= os.path.join(file_path,"index.m3u8")
+    # m3u8_path= os.path.join(file_path,"index.m3u8")
 
-    cmd_thumb = f'ffmpeg -y -i {video_path} -vf  "thumbnail,scale=640:360" -frames:v 1 {file_path}/thumb.png'
-    cmd_str1 = f'ffmpeg -y -i {video_path} -vcodec copy -acodec copy -vbsf h264_mp4toannexb {video_ts}'
-    cmd_str2 = f'ffmpeg -y -i {video_ts} -c copy -map 0 -f segment -segment_list {m3u8_path} -segment_time 5 {file_path}/%03d.ts'
+    cmd_thumb = f'ffmpeg -y -i {video_path} -vf  "thumbnail,scale=981:613" -frames:v 1 {file_path}/thumb.png'
+    cms_transalte=f'ffmpeg -threads 6 -re -fflags +genpts -i "{video_path}" -s:0 1920x1080 -ac 2 -vcodec libx264 -profile:v main -b:v:0 4000k -maxrate:0 4000k -bufsize:0 6000k -r 30 -ar 44100 -g 48 -c:a aac -b:a:0 128k -s:2 1280x720 -ac 2 -vcodec libx264 -profile:v main -b:v:1 2000k -maxrate:2 2000k -bufsize:2 4000k -r 30 -ar 44100 -g 48 -c:a aac -b:a:1 128k -s:4 720x480 -ac 2 -vcodec libx264 -profile:v main -b:v:2 1000k -maxrate:4 1000k -bufsize:4 2000k -r 30 -ar 44100 -g 48 -c:a aac -b:a:2 128k -map 0:v -map 0:a -map 0:v -map 0:a -map 0:v -map 0:a -f hls -var_stream_map "v:0,a:0 v:1,a:1 v:2,a:2" -hls_segment_type mpegts -hls_enc 1 -hls_enc_key 0123456789ABCDEF0123456789ABCDEF -hls_enc_key_url "123456.key" -start_number 10 -hls_time 10 -hls_list_size 0 -hls_start_number_source 1 -master_pl_name "index.m3u8" -hls_segment_filename "{file_path}/index_%v-%09d.ts" "{file_path}/index_%v.m3u8"'
+
+    # cmd_str1 = f'ffmpeg -y -i {video_path} -vcodec copy -acodec copy -vbsf h264_mp4toannexb {video_ts}'
+    # cmd_str2 = f'ffmpeg -y -i {video_ts} -c copy -map 0 -f segment -segment_list {m3u8_path} -segment_time 5 {file_path}/%03d.ts'
     cmd(cmd_thumb)
-    cmd(cmd_str1)
-    cmd(cmd_str2)
+    cmd(cms_transalte)
     thumbUrl = f'https://cdn.jsdelivr.net/gh/popoYSL/adssdas/v/{base64_video_path}/thumb.png'
     linkid = base64_video_path
     link = f'https://cdn.jsdelivr.net/gh/popoYSL/adssdas/v/{base64_video_path}/index.m3u8'
     createTime = str(get_FileCreateTime(video_path))
-    os.remove(video_ts)
     return linkid,link,thumbUrl,createTime
 def push():
     cmd(f"git add .")
@@ -114,8 +121,8 @@ def push():
 targeturl = 'https://www.huya.com/wanzi'
 videoDict = {}
 videoDictList = []
-videoDict['title'] = 'test'
-videoDict['files'] = ['2.mp4','test.mp4']
+videoDict['title'] = "171031 EXID '위아래' 하니 4K 직캠 @화천 평창동계올림픽 G-100 4K Fancam by -wA-"
+videoDict['files'] = ['1.mp4']
 videoDictList.append(videoDict)
 videoDict = copy.deepcopy(videoDict)
 getJson(targeturl,videoDictList)
