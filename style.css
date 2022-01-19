@@ -4,6 +4,11 @@
     font-family: 'poppins',sans-serif;
     box-sizing: border-box;
 }
+/* .icon{
+    height: 20px;
+    position: fixed
+    ;
+} */
 body {
     margin: 0;
     background-color: #eee;
@@ -43,7 +48,8 @@ nav{
     margin-right: 25px;
 }
 .nav-left .logo{
-    width: 160px;
+    width: 80px;
+    height: 40px;
 }
 .nav-middle{
     position: fixed;
@@ -597,3 +603,20 @@ img.vimg:hover {
     -o-transform: rotate(360deg);
     -ms-transform: rotate(360deg);
 }
+.plyr {
+    border-radius: 5px;
+  }
+  .plyr__caption {
+    background: rgba(60,60,60,.6) !important;
+    border-radius: 5px;
+  }
+  
+  b {
+    font-family: Inter;
+    font-weight: 400 !important;
+  }
+  
+  video {
+    width: 100%;
+    box-shadow: 10px 10px 10px white;
+  }

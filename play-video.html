@@ -5,16 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>正在加载中</title>
-    
+    <link rel="stylesheet" href="css/plyr.css">
+    <link rel="stylesheet" href="css/inter.css">
     <link rel="stylesheet" href="style.css">
     <!-- 网站显示页logo图标 -->
-    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="shortcut icon" href="images/icon.ico">
 </head>
 <body>
+    <script src="js/hls.js"></script>
+    <script src="js/plyr.min.js"></script>
+    <script src="js/script.js"></script>
     <nav class="flex-div">
         <div class="nav-left flex-div">
             <!-- <img src="images/menu.png" class="menu-icon"> -->
-            <a href="index.html"><img src="images/logo.png" class="logo"></a>
+            <a href="index.html">
+                <!-- <img src="images/logo.png" class="logo"> -->
+                <svg t="1642236329599" class="icon" viewBox="0 0 1157 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1244" width="40" height="40"><path d="M578.949585 998.612333c-108.968482 0-219.450992-8.954922-328.373314-26.620122l-0.664695-0.110783c-89.239957-15.541868-176.411973-93.528164-194.317202-173.836278l-0.184637-0.844717c-39.877101-192.309268-39.877101-387.328092 0-579.632745l0.180021-0.830869c17.891381-80.326578 105.068013-158.31749 194.33105-173.854742l0.660079-0.110782C359.498594 25.106094 469.976488 16.155788 578.949585 16.155788s219.450992 8.954922 328.382546 26.620123l0.664696 0.110782c89.244573 15.541868 176.411973 93.528164 194.312585 173.850126l0.175406 0.830869c39.886332 192.309268 39.886332 387.328092 0 579.637361-0.055391 0.276956-0.110783 0.549297-0.175406 0.826253-17.882149 80.31273-105.049549 158.308258-194.30797 173.854742a18.366823 18.366823 0 0 1-0.669311 0.110783c-108.931554 17.655968-219.414064 26.615507-328.382546 26.615506z m-309.521817-140.467652c102.709268 16.635846 206.844861 25.069167 309.521817 25.069167s206.826397-8.437937 309.544898-25.073783c45.970141-8.165597 93.809737-53.309484 101.098305-84.873278 36.521313-176.444284 36.521313-355.3304 0-531.770069-7.2978-31.573026-55.137396-76.716913-101.098305-84.873278-102.723116-16.635846-206.858709-25.073783-309.544898-25.073783s-206.821781 8.433321-309.540281 25.073783c-45.965525 8.160981-93.814353 53.304868-101.107537 84.877894-36.512081 176.416589-36.512081 355.344248 0 531.765453 7.307032 31.56841 55.160476 76.721529 101.126001 84.877894z" fill="#d81e06" p-id="1245"></path><path d="M478.640606 772.500541a57.713091 57.713091 0 0 1-57.694627-57.699243V333.233898a57.699243 57.699243 0 0 1 92.092607-46.330184l259.632745 192.757014a57.703859 57.703859 0 0 1-0.456978 92.992716l-259.632745 188.810386a57.671547 57.671547 0 0 1-33.941002 11.036711z m57.703858-324.565164v153.567688l104.491021-75.99221-104.491021-77.575478z" fill="#d81e06" p-id="1246"></path></svg>
+            </a>
         </div>
         <div class="nav-middle">
             <input type="image" img src="images/search.png" onclick="{Open()}" class="search-icon"/>
@@ -33,8 +40,8 @@
             <input type="image" img src="images/search.png" onclick="{Open()}"/>
             <!-- <img src="images/upload.png">
             <img src="images/more.png">
-            <img src="images/notification.png">
-            <img src="images/Jack.png" class="user-icon"> -->
+            <img src="images/notification.png"> -->
+            <!-- <img src="images/Jack.png" class="user-icon"> -->
         </div>
     </nav>
     <div class="container play-container">
@@ -43,7 +50,16 @@
                 <!-- <video controls autoplay>
                     <source src="https://streamtape.com/v/vDq2O2VJOKuDXp/bananafever.bailey.brooke.part.2.mp4" type="video/mp4"> 
                 </video> -->
-                <div id="video"></div>
+                <div class="video-container">
+                <video controls crossorigin playsinline autoplay>
+                    <source 
+                      type="application/x-mpegURL" 
+                      src=""
+                      id="video" >
+                </video>
+                </div>
+
+                    
                 <!-- <iframe src=""  id="video" width="800" height="450" allowfullscreen allowtransparency allow="autoplay" scrolling="no" frameborder="0"></iframe> -->
                 <div class="tags">
                     <a href="https://www.huya.com/wanzi">#丸子呦</a>
@@ -87,6 +103,8 @@
     </div>
     <script src="hls.js"></script>
     <script src="DPlayer.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/xgplayer/browser/index.js" charset="utf-8"></script>
+    <script src="//cdn.jsdelivr.net/npm/xgplayer-hls.js/browser/index.js" charset="utf-8"></script>
     <script type="text/javascript" src="js/getUrlParam.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/addPlayVdeoInfo.js"></script>  

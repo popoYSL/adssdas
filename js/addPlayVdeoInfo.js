@@ -1,7 +1,7 @@
 var a = UrlParam.paramValues("a");
 var b = UrlParam.paramValues("b");
-// document.getElementById('video').src=("https://streamtape.com/e/"+a);
 
+document.getElementById('video').src = 'https://cdn.jsdelivr.net/gh/popoYSL/adssdas/v/'+a+'/index.m3u8'
 $(function(){
 $.getJSON('json/'+b+".json",function(data){
 document.title = data[0]['folderName'];
@@ -28,15 +28,17 @@ $.each(data,function(infoIndex,info){
     //"<a href='" + info["url"] + "' target='_blank'><img src='" + info["img"] + "' /></a>";
 })
 $jsontip.html(strHtml);//显示处理后的数据
-const dp = new DPlayer({
-    container: document.getElementById('video'),
-    video: {
-        url: 'https://cdn.jsdelivr.net/gh/popoYSL/adssdas/v/'+a+'/index.m3u8',
-        thumbnails: 'https://cdn.jsdelivr.net/gh/popoYSL/adssdas/v/'+a+'/thumb.png',
-        pic: 'https://cdn.jsdelivr.net/gh/popoYSL/adssdas/v/'+a+'/thumb.png',
-        type: 'hls',
-    },
-    });
+
+// const dp = new DPlayer({
+//     container: document.getElementById('video'),
+//     video: {
+//         url: 'https://cdn.jsdelivr.net/gh/popoYSL/adssdas/v/'+a+'/index.m3u8',
+//         thumbnails: 'https://cdn.jsdelivr.net/gh/popoYSL/adssdas/v/'+a+'/thumb.png',
+//         pic: 'https://cdn.jsdelivr.net/gh/popoYSL/adssdas/v/'+a+'/thumb.png',
+//         type: 'hls',
+//     },
+//     });
+
 })
 
 })

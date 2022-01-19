@@ -33,41 +33,46 @@ def get_FileCreateTime(filePath):
     t = os.path.getctime(filePath)
     return TimeStampToTime(t)
 
-def getJson(targeturl,tilte,videoFileList):
+def getJson(targeturl,videoDictList):
     achorname,subscribe,avatarImg = huya_message(targeturl)
     indexList = []
+    with open(os.path.join('json','index.json'),'r') as load_f:
+        indexList = json.load(load_f)
     mkdir('json')
-    if len(videoFileList)>0:
-        print(tilte)
-        fileList=[]
-        fileDict = {}
-        firstFileId  = ''
-        for file in videoFileList:
-            linkid,link,thumbUrl,createTime = getLink(file)
-            fileDict['achorname'] = achorname
-            fileDict['subscribe'] = subscribe
-            fileDict['avatar-img'] = avatarImg
-           
+    for videoInfo in videoDictList:
+        tilte = videoInfo['title']
+        videoFileList = videoInfo['files']
+        if len(videoFileList)>0:
+            print(tilte)
+            fileList=[]
+            fileDict = {}
+            firstFileId  = ''
+            for file in videoFileList:
+                linkid,link,thumbUrl,createTime = getLink(file)
+                fileDict['achorname'] = achorname
+                fileDict['subscribe'] = subscribe
+                fileDict['avatar-img'] = avatarImg
             
-            fileDict['name'] = file[:-4] #侧边标题名称
-            fileDict['link'] = link # 视频链接videoUrl
-            fileDict['linkid'] = linkid
-            fileDict['thumbUrl'] = thumbUrl #封面图链接
-           
-            fileDict['created_at'] = createTime
+                
+                fileDict['name'] = file[:-4] #侧边标题名称
+                fileDict['link'] = link # 视频链接videoUrl
+                fileDict['linkid'] = linkid
+                fileDict['thumbUrl'] = thumbUrl #封面图链接
             
-            if(len(fileList))==0:
-                fileDict["folderName"] = tilte
-                firstFileId = linkid
-                fileDict["firstLinkId"] = firstFileId
-                firstFile = fileDict
-            fileList.append(fileDict)
-            fileDict = copy.deepcopy(fileDict)
-        indexList.append(firstFile)
-        with open(os.path.join('json',firstFileId+'.json'),"w",encoding="utf-8") as f:
-            json.dump(fileList,f)
-    with open(os.path.join('json','index.json'),"w",encoding="utf-8") as f:
-        json.dump(indexList[::-1],f)
+                fileDict['created_at'] = createTime
+                
+                if(len(fileList))==0:
+                    fileDict["folderName"] = tilte
+                    firstFileId = linkid
+                    fileDict["firstLinkId"] = firstFileId
+                    firstFile = fileDict
+                fileList.append(fileDict)
+                fileDict = copy.deepcopy(fileDict)
+            indexList.append(firstFile)
+            with open(os.path.join('json',firstFileId+'.json'),"w",encoding="utf-8") as f:
+                json.dump(fileList,f)
+        with open(os.path.join('json','index.json'),"w",encoding="utf-8") as f:
+            json.dump(indexList[::-1],f)
         
 def mkdir(path):
     path=path.strip()
@@ -107,7 +112,11 @@ def push():
     cmd(f"git commit -m 'update'")
     cmd(f"git push")
 targeturl = 'https://www.huya.com/wanzi'
-tilte = 'test'
-videoFileList = ['2.mp4','test.mp4']
-getJson(targeturl,tilte,videoFileList)
-push()
+videoDict = {}
+videoDictList = []
+videoDict['title'] = 'test'
+videoDict['files'] = ['2.mp4','test.mp4']
+videoDictList.append(videoDict)
+videoDict = copy.deepcopy(videoDict)
+getJson(targeturl,videoDictList)
+# push()
