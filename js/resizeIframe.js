@@ -38,4 +38,5 @@
             fitVid.removeAttribute("width");
             }
         }
+        watchChangeSize()
         })(window, document);

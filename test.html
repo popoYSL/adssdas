@@ -1,8 +1,33 @@
-<div class="plyr__video-embed" id="player">
-    <iframe
-      src="https://player.vimeo.com/video/76979871?loop=false&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=true&amp;transparent=0&amp;gesture=media"
-      allowfullscreen
-      allowtransparency
-      allow="autoplay"
-    ></iframe>
-  </div>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <p>jQuery callbacks</p>    
+
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script>
+        // 自定义事件，自定义回调
+        var callbacks = $.Callbacks() // 注意大小写
+        function test()
+        {
+            id = 2
+            callbacks.add(function (info,i) {
+                console.log('fn1', info)
+                console.log(id)
+            })
+        }
+        // callbacks.add(function (info) {
+        //     console.log('fn2', info)
+        // })
+        // callbacks.add(function (info) {
+        //     console.log('fn3', info)
+        // })
+        // callbacks.fire('gogogo','2')
+        test()
+        callbacks.fire('fire')
+    </script>
+</body>
+</html>

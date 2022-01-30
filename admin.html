@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    
+</head>
+<body>
+    <div id='main'>
+        <h1 id = "tip">后台管理</h1>
+        <button onclick = updateAdd()>增量更新</button>
+        <button onclick = updateAll()>全量更新</button>
+        <h1 id = "status"></h1>
+        <h1 id = "rec"></h1>
+        <ul id="myUL">
+        </ul>
+    </div>
+<script type="text/javascript" src="js/getUrlParam.js"></script>
+<script>
+    var n = UrlParam.paramValues("n");
+    var p = UrlParam.paramValues("p");
+    if(n=='popo'&p=='525027')
+    {
+        document.getElementById('main').style.display = 'inline'
+    }
+    else
+    {
+        document.getElementById('main').style.display = 'none'
+    }
+</script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script  type="text/javascript">
+        var socket;       
+        var ws = new WebSocket("ws://127.0.0.1:50007");
+        socket = ws;
+        var heartCheck = {
+            timeout: 30000,//30秒
+            timeoutObj: null,
+            reset: function () {//接收成功一次推送，就将心跳检测的倒计时重置为30秒
+                clearTimeout(this.timeoutObj);//重置倒计时
+                this.start();
+            },
+            start: function () {//启动心跳检测机制，设置倒计时30秒一次
+                this.timeoutObj = setTimeout(function () {
+                var message = '-1'
+                ws.send(message);//启动心跳
+                }, this.timeout)
+            }
+            //onopen连接上，就开始start及时，如果在定时时间范围内，onmessage获取到了服务端消息，
+            // 就重置reset倒计时，距离上次从后端获取消息30秒后，执行心跳检测，看是不是断了。
+            };
+        ws.onopen = function() {
+            document.getElementById('status').innerText = "连接成功"
+            heartCheck.start()
+        };
+ 
+        ws.onmessage = function(evt) {
+            var received_msg = evt.data;
+            document.getElementById('rec').innerText = received_msg
+            $.getJSON('json/index.json',function(data){
+            var $jsontip = $("#myUL");
+            var strHtml = "";//存储数据的变量
+            $jsontip.empty();//清空内容
+            $.each(data,function(infoIndex,info){
+                if(info['folderName'] != '已经删除')
+                    strHtml +=
+                    '<li><p>'+info["folderName"]+' <button onclick = del("'+info["folderName"]+'")>删除</button></p></li>'
+            })
+            $jsontip.html(strHtml);//显示处理后的数据
+            
+            })
+            heartCheck.reset();
+            // alert('recv:' + received_msg + ' 发送完成');
+        };
+        window.onbeforeunload = function(){  
+            ws.close();  
+        }  
+        ws.onclose = function() {
+            document.getElementById('status').innerText = "断开了连接"
+        };
+       
+        function del(name) {
+            socket.send(name);
+		}
+        function updateAdd()
+        {
+            socket.send('0')
+        }
+        function updateAll()
+        {
+            socket.send('1')
+        }
+    </script>
+<script>
+    $(function(){
+    $.getJSON('json/index.json',function(data){
+    var $jsontip = $("#myUL");
+    var strHtml = "";//存储数据的变量
+    $jsontip.empty();//清空内容
+    $.each(data,function(infoIndex,info){
+        if(info['folderName'] != '已经删除')
+            strHtml +=
+            '<li><p>'+info["folderName"]+' <button onclick = del("'+info["folderName"]+'")>删除</button></p></li>'
+    })
+    $jsontip.html(strHtml);//显示处理后的数据
+    
+    })
+    
+    })
+</script>
+</body>
+</html>

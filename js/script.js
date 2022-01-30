@@ -1,60 +1,70 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const video = document.querySelector("video");
-    const source = video.getElementsByTagName("source")[0].src;
-  
-    // For more options see: https://github.com/sampotts/plyr/#options
-    const defaultOptions = {};
-  
-    if (Hls.isSupported()) {
-      // For more Hls.js options, see https://github.com/dailymotion/hls.js
-      const hls = new Hls();
-      hls.loadSource(source);
-  
-      // From the m3u8 playlist, hls parses the manifest and returns
-      // all available video qualities. This is important, in this approach,
-      // we will have one source on the Plyr player.
-      hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
-        const availableQualities = hls.levels.map((l) => l.height);
-        availableQualities.unshift(0); //prepend 0 to quality array
-        defaultOptions.quality = {
-          default: 0, //Default - AUTO
-          options: availableQualities,
-          forced: true,
-          onChange: (e) => updateQuality(e)
-        };
-        hls.on(Hls.Events.LEVEL_SWITCHED, function (event, data) {
-          var span = document.querySelector(
-            ".plyr__menu__container [data-plyr='quality'][value='0'] span"
-          );
-          var span = document.querySelector(
-            ".plyr__menu__container [data-plyr='quality'][value='0'] span"
-          );
-          if (hls.autoLevelEnabled) {
-            span.innerHTML = `Auto (${hls.levels[data.level].height}p)`;
-          } else {
-            span.innerHTML = `Auto`;
-          }
-        });
-        var player = new Plyr(video, defaultOptions);
-      });
-      hls.attachMedia(video);
-      window.hls = hls;
-    } else {
-      // default options with no quality update in case Hls is not supported
-      const player = new Plyr(video, defaultOptions);
+// var menuIcon = document.querySelector(".menu-icon");
+// var sidebar = document.querySelector(".sidebar");
+// var container  = document.querySelector(".container");
+
+// menuIcon.onclick = function(){
+//     sidebar.classList.toggle("small-siderbar");
+//     container.classList.toggle("large-container")
+// }
+// var searchIcon = document.querySelector(".search-icon");
+// var searchBox = document.querySelector(".search-box");
+// var searchBoxInput = document.querySelector(".search-box-input");
+// // var container  = document.querySelector(".container");
+
+// searchIcon.onclick = function(){
+//     searchBox.classList.toggle("open-search-box");
+//     searchBoxInput.classList.toggle("open-search-box-input")
+// }
+//---------------------搜索页面-----------------------
+function SearchFunction() 
+{
+    // 声明变量
+    var input, filter, ul, li, a, i;
+    input = document.getElementById('myInput');
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName('li');
+    // 循环所有列表，查找匹配项
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        if (a.innerHTML.toUpperCase().indexOf(filter) > -1 && filter!='') {
+            li[i].style.display = 'inline'
+        }
+        else
+        {
+            li[i].style.display = 'none'
+        }
     }
-  
-    function updateQuality(newQuality) {
-      if (newQuality === 0) {
-        window.hls.currentLevel = -1; //Enable AUTO quality if option.value = 0
-            console.log("Auto quality selection");
-      } else {
-        window.hls.levels.forEach((level, levelIndex) => {
-          if (level.height === newQuality) {
-            console.log("Found quality match with " + newQuality);
-            window.hls.currentLevel = levelIndex;
-          }
-        });
-      }
-    }
-  });
+}
+// ----------------打开搜索结果页面-------------------------
+function OpenWinFunction()
+{
+
+    var input, filter;
+    input = document.getElementById('myInput');
+    filter = input.value.toUpperCase();
+    goUrl = "search.html?s="+filter
+    window.open(goUrl,'_self');
+    
+}
+function OpenWinByfilter(filter)
+{
+    alert(filter)
+    goUrl = "search.html?s="+filter
+    window.open(goUrl,'_self');
+}
+// ----------------搜索索引-------------------
+$(function(){
+    $.getJSON('json/index.json',function(data){
+    var $jsontip = $("#myUL");
+    var strHtml = "";//存储数据的变量
+    $jsontip.empty();//清空内容
+    $.each(data,function(infoIndex,info){
+        strHtml +=
+        '<li><a href="'+ "play-video.html?a="+info["linkid"] +"&b="+info["firstLinkId"]+'">'+info["folderName"]+'</a></li>'
+    })
+    $jsontip.html(strHtml);//显示处理后的数据
+    
+    })
+    
+    })
