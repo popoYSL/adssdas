@@ -1,3 +1,19 @@
+:root
+{
+    --bgcolor: #181818;
+    --secondbgcolor:#202020;
+    --firsttextcolor:#ededed;
+    --secondtextcolor:#aaaaaa;
+    --hovercolor:#3b3b3b;
+    
+    --keepthemecolor:#000;
+    --searchintercolor:#121212;
+    --linecolor:#353535;
+    --linkcolor:#33a6f1;
+
+    --normalshadow:rgba(0, 0, 0, 0.3);
+    --rightbarshadow:rgba(255, 255, 255, 0.12)
+}
 *{
     margin: 0;
     padding: 0;
@@ -6,11 +22,11 @@
 }
 body {
     margin: 0;
-    background-color: #181818;
+    background-color: var(--bgcolor);
 }
 a{
     text-decoration: none;
-    color: #aaaaaa;
+    color: var(--secondtextcolor);
 }
 img{
     cursor: pointer;
@@ -22,8 +38,8 @@ img{
 nav{
     padding: 10px 2%;
     justify-content: space-between;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    background: #202020;
+    box-shadow: 0 0 10px  var(--normalshadow);
+    background: var(--secondbgcolor);
     position: sticky;
     top: 0;
     z-index: 10;
@@ -42,7 +58,10 @@ nav{
     margin-right: 25px;
 }
 .nav-left .logo{
-    width: 160px;
+    background-image: url("images/darklogo.png");
+    background-size: 160px;
+    background-repeat: no-repeat;
+    padding: 0px 0px 42px 160px;
 }
 .nav-middle{
     position: fixed;
@@ -53,7 +72,7 @@ nav{
 }
 /* -------------main--------------- */
 .container{
-    background: #181818;
+    background: var(--bgcolor);
     padding-left: 2%;
     padding-right: 2%;
     padding-top: 20px;
@@ -88,11 +107,13 @@ nav{
 }
 .vid-list:hover
 {
-    background: #3b3b3b;
+    background: var(--hovercolor);
 }
 .vid-list .thumbnail{
     width: 100%;
     border-radius: 5px;
+    min-height: 160px;
+    background-color: #ffffff;
 }
 .vid-list .flex-div{
     align-items: flex-start;
@@ -106,11 +127,13 @@ nav{
 }
 .vid-info{
     /* index中下面颜色 */
-    color: #aaaaaa; 
+    color: var(--secondtextcolor); 
+    background-color: #ffffff;
+    min-height: 20px;
 }
 #vid-title
 {
-    color: #ededed;
+    color: var(--firsttextcolor);
     font-size: 1.2rem;
     overflow : hidden;
     text-overflow: ellipsis;
@@ -121,23 +144,25 @@ nav{
     white-space:normal;
 }
 .vid-info a{
-    color: #ededed;
-    font-weight: 600;
+    color: var(--firsttextcolor);
+    font-weight: 540;
     margin-bottom: 5px;
     overflow : hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical; 
-    font-size: 0.9rem;
+    font-size: 1.0rem;
+    min-height: 20px;
+    background-color: #ffffff;
 }
 .box-vid-info{
-    color: #aaaaaa;
+    color: var(--secondtextcolor);
     font-size: 13px;
 }
 .box-vid-info a{
-    color: #000;
-    font-weight: 600;
+    color: var(--keepthemecolor);
+    font-weight: 540;
     margin-bottom: 5px;
     overflow : hidden;
     text-overflow: ellipsis;
@@ -175,6 +200,7 @@ nav{
 }
 
 /* -------------------play video page-------------------- */
+
 .play-container{
     padding-left: 2%;
     /* padding-right: 2%; */
@@ -206,18 +232,18 @@ nav{
     overflow-x: hidden;
     /* border:solid 2px rgb(189, 187, 187); */
     border-bottom: none;
-    background-color: #181818;
-    box-shadow: 0 0 4px 1px rgba(0, 0, 0, .12);
+    background-color: var(--bgcolor);
+    box-shadow: 0 0 4px 1px var(--normalshadow);
 	transition: all .3s;
-    border: 1px solid #353535;
+    border: 1px solid var(--linecolor);
 }
 .right-sidebar #sidebar1 .side-video-list{
-    box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 1px 1px var(--rightbarshadow);
 	transition: all .3s;
-    /* background-color: #202020; */
+    /* background-color: var(--secondbgcolor); */
 }
 .right-sidebar #sidebar1 .side-video-list:hover{
-    background-color: #3b3b3b;
+    background-color: var(--hovercolor);
 }
 .siderbardisplay
 {   
@@ -227,11 +253,11 @@ nav{
 {
     width: 100%;
     height: 30px;
-    background-color: #202020;
+    background-color: var(--secondbgcolor);
     border: 0;
     cursor:pointer;
-    border: 1px solid #353535;
-    color: #ededed;
+    border: 1px solid var(--linecolor);
+    color: var(--firsttextcolor);
 }
 .right-sidebar #sidebar2{
     /* padding-left: 1%;
@@ -254,7 +280,7 @@ nav{
     left: 0;
     width: 100%;
     height: 100%;
-    box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 0 4px 1px var(--normalshadow);
 	transition: all .3s
   }
 /* .play-video video{
@@ -272,7 +298,6 @@ nav{
     border-radius: 5px;
     /* border: 1px solid #ddd; */
     cursor: pointer;
-    background-color: #f6f6f6'
 }
 .side-video-list:active
 {
@@ -283,11 +308,11 @@ nav{
 }
 .side-video-list:hover
 {
-    background-color:#3b3b3b
+    background-color:var(--hovercolor)
 }
 .side-video-list_click
 {
-    background-color:#3b3b3b
+    background-color:var(--hovercolor)
 }
 .side-video-list img{
     width: 100%;
@@ -304,14 +329,14 @@ nav{
     border-radius: 5px;
 }
 .side-video-list p{
-    padding-left: 4px;
+    padding-left: 8px;
 }
 .side-video-list .vid-info{ 
     flex-basis: 48%;
 }
 .side-video-list .box-vid-info{ 
     flex-basis: 50%;
-    color: #aaaaaa;
+    color: var(--secondtextcolor);
     font-size: 13px;
 }
 .vid-info p{
@@ -320,17 +345,17 @@ nav{
 }
 .box-vid-info p{
 
-    /* font-weight: 600; */
+    /* font-weight: 540; */
     font-size: 0.08rem;
-    color: #aaaaaa;
+    color: var(--secondtextcolor);
 }
 .side-video-list .right-box-fileindex
 {
-    color: #ededed;
+    color: var(--firsttextcolor);
 }
 .side-video-list .box-vid-info a{
     /* padding-left: 10px; */
-    font-weight: 600;
+    font-weight: 540;
     font-size: 0.8rem;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -338,12 +363,12 @@ nav{
     -webkit-box-orient: vertical;
     word-break:break-all;
     white-space:normal;
-    color: #ededed;
+    color: var(--firsttextcolor);
 }
 .side-video-list .vid-info a{
     /* padding-left: 10px; */
-    font-weight: 600;
-    font-size: 0.9rem;
+    font-weight: 540;
+    font-size: 1rem;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -356,11 +381,11 @@ nav{
     font-size: 0.8rem;
 }
 .play-video .tags a{
-    color: #33a6f1;
+    color: var(--linkcolor);
     font-size: 13px;
 }
 .play-video h3{
-    font-weight: 600;
+    font-weight: 540;
     font-size: 22px;
 }
 .play-video .play-video-info{
@@ -370,7 +395,7 @@ nav{
     flex-wrap: wrap;
     /* margin-top: 10px; */
     font-size: 14px;
-    color: #aaaaaa;
+    color: var(--secondtextcolor);
 }
 .play-video .play-video-info p{
     /* align-items:center; */
@@ -381,7 +406,7 @@ nav{
     flex-wrap: wrap; */
     margin-top: 10px;
     font-size: 14px;
-    color: #aaaaaa;
+    color: var(--secondtextcolor);
 }
 .play-video .play-video-info a img{
     width: 20px;
@@ -395,7 +420,7 @@ nav{
 .play-video hr{
     border: 0;
     height: 1px;
-    background: #353535;
+    background: var(--linecolor);
     margin: 10px 0;
 }
 .publisher{
@@ -413,21 +438,20 @@ nav{
     margin-right: 15px;
 } 
 .publisher div p a{
-    color: rgb(255, 255, 255);
-    font-weight: 600;
+    color: var(--firsttextcolor);
+    font-weight: 540;
     font-size: 1rem;
 }
 .publisher div span{
     font-size: 13px;
-    color:#aaaaaa
+    color:var(--secondtextcolor)
 }
 .publisher button{
-    color: #000;
-    font-weight: 600;
+    color: var(--keepthemecolor);
+    font-weight: 540;
     font-size: 18px;
     outline: 0;
     border: 0;
-    background: #f9f9f9
     /* background: red;
     color: rgb(0, 0, 0);
     padding: 8px 30px;
@@ -444,11 +468,11 @@ nav{
 .vid-description p{
     font-size: 14px;
     margin-bottom: 5px;
-    color: #ededed;
+    color: var(--firsttextcolor);
 }
 .vid-description h4{
     font-size: 14px;
-    color: #ededed;
+    color: var(--firsttextcolor);
     margin-top: 15px;
 }
 /* -------------------评论------------------- */
@@ -500,7 +524,7 @@ nav{
 .old-comment h3 span{
     font-size: 12px;
     color: #aaaaaa;
-    font-weight: 500;
+    font-weight: 540;
     margin-left: 8px;
 }
 .old-comment .acomment-action{
@@ -519,7 +543,7 @@ nav{
     color:#aaaaaa;
 }
 .old-comment .acomment-action a{
-    color:#0000ff
+    color:var(--keepthemecolor)0ff
 } */
 /* ----------------------缩小屏幕------------------------- */
 @media(max-width:1500px)
@@ -603,18 +627,18 @@ nav{
     width: 100%; 
     font-size: 16px; /* 加大字体 */
     padding: 12px 20px 12px 40px; 
-    border: 1px solid #303030; 
+    border: 1px solid var(--linecolor); 
     margin-bottom: 12px; 
     margin-top: 4px;
     outline: 0;
     border-radius: 5px;
-    background-color: #121212;
+    background-color: var(--bgcolor);
 }
 input {
-    color: #ededed;
+    color: var(--firsttextcolor);
   }
   input::first-line {
-    color: #ededed;
+    color: var(--firsttextcolor);
   }
 .nav-middle .search-icon{
     /* width: 100%;  */
@@ -624,7 +648,7 @@ input {
     height: 22px;
     position: fixed;
     z-index: 101;
-    color: #ededed;
+    color: var(--firsttextcolor);
 }
 #myUL {
     /* 移除默认的列表样式 */
@@ -637,19 +661,19 @@ input {
     /* min-height:300px; */
     overflow-y:auto;
     max-height:600px;
-    background-color: #ededed;
+    background-color: var(--firsttextcolor);
 }
 #myUL li{
     display: none;
 }
 #myUL li a{
-    border: 1px solid #ddd;  /*链接添加边框 */
+    border: 1px solid var(--linecolor);  /*链接添加边框 */
     margin-top: -1px; 
-    background-color: #f6f6f6; 
+    background-color: var(--bgcolor); 
     padding: 12px; 
     text-decoration: none;
     font-size: 15px; 
-    color: rgb(0, 0, 0); 
+    color: var(--firsttextcolor); 
     display: block; 
 }
 
@@ -659,7 +683,7 @@ input {
 } */
 
 #myUL li a:hover:not(.header) {
-    background-color: #eee;
+    background-color: var(--hovercolor);
 }
 
 /* --------------------滚动----------------------- */
@@ -674,7 +698,7 @@ input {
  {
      width: 5px;
      height:16px;
-     background-color:#181818;
+     background-color:var(--bgcolor);
  }
  /*定义滚动条轨道
   内阴影+圆角*/
@@ -689,85 +713,148 @@ input {
  ::-webkit-scrollbar-thumb
  {
      border-radius:10px;
-     -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,.3);
-     background-color:#aaaaaa;
+     -webkit-box-shadow:inset 0 0 6px var(--normalshadow);
+     background-color:var(--secondtextcolor);
  }
 
  /* ------------------评论--------------------- */
- .comment .vpanel .vwrap
- {
-    border: 1px solid #303030;
- }
- .comment .vpanel .vwrap .vrow button
- {
-     border: 1px solid #303030;
-     color: #ededed;
-     background-color: #303030;
 
- }
- .v[data-class=v] .vcards .vcard .vh .vmeta .vat
- {
-     color: #33a6f1;
- }
- .comment .vcount
- {
-     color: #ededed;
- }
- #veditor {
-	background-image: url(images/commitsBg.webp);
-	background-size: contain;
-	background-repeat: no-repeat;
-	background-position: right;
-	background-color: rgba(255, 255, 255, 0);
-	resize: vertical
+
+@media (prefers-color-scheme: dark) {
+body {
+    --waline-box-shadow: 0 0 4px 1px var(--normalshadow);
+    /* 常规颜色 */
+    --waline-white: var(--keepthemecolor);
+    --waline-light-grey: #666;
+    --waline-dark-grey: #999;
+
+    /* 布局颜色 */
+    --waline-text-color: #888;
+    --waline-bgcolor: #1e1e1e;
+    --waline-bgcolor-light: #272727;
+    --waline-border-color: #333;
+    --waline-disable-bgcolor: #444;
+    --waline-disable-color: #272727;
+
+    /* 特殊颜色 */
+    --waline-bq-color: #272727;
+
+    /* 其他颜色 */
+    --waline-info-bgcolor: #272727;
+    --waline-info-color: #666;
+    --waline-theme-color:var(--linkcolor);
+    --waline-active-color:#0095f8;
+    --waline-border: none;
+
+    --bgcolor: #181818;
+    --secondbgcolor:#202020;
+    --firsttextcolor:#ededed;
+    --secondtextcolor:#aaaaaa;
+    --hovercolor:#3b3b3b;
+    
+    --keepthemecolor:#000;
+    --searchintercolor:#121212;
+    --linecolor:#353535;
+    --linkcolor:#33a6f1;
+
+    --normalshadow:rgba(0, 0, 0, 0.3);
+    --rightbarshadow:rgba(255, 255, 255, 0.12)
+    }
+    .nav-left .logo{
+        background-image: url("images/darklogo.png");
+        background-size: 160px;
+        background-repeat: no-repeat;
+        padding: 0px 0px 42px 160px;
+    }
 }
-#veditor:focus{
-	background-position-y: 200px;
-	transition: all 0.2s ease-in-out 0s;
-}
-.comment .vheader .vnick {
-    flex-basis: 49%;
+@media (prefers-color-scheme: light) {
+    body {
+        --waline-box-shadow: 0 0 4px 1px var(--normalshadow);
+        --waline-white:#f9f9f9;
+        --waline-theme-color:var(--linkcolor);
+        --waline-active-color:#065fd4;
+        --waline-border: #000;
+        --waline-bgcolor:#f9f9f9;
+        --waline-bgcolor-hover:#f9f9f9;
+        --waline-border: 1px solid var(--waline-border-color);
+        --waline-box-shadow:var(--rightbarshadow);
+        
+        --bgcolor: #f9f9f9;
+        --secondbgcolor:#ffffff;
+        --firsttextcolor: #000;
+        --secondtextcolor:#5a5a5a;
+        --hovercolor:#d6d6d6;
+        --keepthemecolor:#ffffff;
+        --searchintercolor:#ffffff;
+        --linecolor:#cccccc;
+        --linkcolor:#065fd4;
+    
+        --normalshadow:rgba(255, 255, 255, 0.12);
+        --rightbarshadow:rgba(0, 0, 0, 0.3);
+    }
+    .nav-left .logo{
+        background-image: url("images/lightlogo.png");
+        background-size: 160px;
+        background-repeat: no-repeat;
+        padding: 0px 0px 42px 160px;
+    }
 }
 
-.comment .vheader .vmail {
-    flex-basis: 49%;
-}
-.vheader
+.vcount
 {
-    display: flex;
-    justify-content: space-between;
+    display: none;
 }
-.comment .vheader .vlink {
-   display: none;
+.vempty
+{
+    display: none;
 }
-.comment .vcards .vcard {
-	padding: 15px 20px 0 20px;
-	border-radius: 10px;
-	margin-bottom: 15px;
-	box-shadow: 0 0 4px 1px rgba(0, 0, 0, .12);
-	transition: all .3s;
-    border: 1px solid #303030;
+.vpower
+{
+    display: none;
 }
 
-.comment .vcards .vcard:hover {
-	box-shadow: 0 0 8px 3px rgba(0, 0, 0, .12)
-}
-.comment .vcards{
-	color: #ededed;
-}
-.comment .vcards .vcard .vh .vcard {
-	border: none;
-	box-shadow: none;
-}
+ /* -----------------loading----------------------- */
 
-img.vimg {
-    transition: all 1s   /* 旋转时间为 1s */
-}
-
-img.vimg:hover {
-    transform: rotate(360deg);
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-}
+ .lds-ring {
+    display: inline-block;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0);
+    z-index:10;
+  }
+  .lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: 50%;  
+     margin-left: -22px;  
+    top: 50%;  
+    margin-top: -22px;  
+    border: 4px solid rgb(255, 0, 0);
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: rgb(255, 0, 0) transparent transparent transparent;
+  }
+  .lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  .lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  .lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+  @keyframes lds-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  :root{
+    --plyr-color-main:#ff0000
+  }

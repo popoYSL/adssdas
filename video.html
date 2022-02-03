@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>HLS Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/plyr.min.css">
+  <!-- <link rel="stylesheet" href="inter.css"> -->
+  <link rel="stylesheet" href="darkstyle.css">
+
+  <script src="js/hls.js"></script>
+  <script src="js/plyr.min.js"></script>
+  <script src="js/htmlvideoscript.js"></script>
+  <script src="js/getUrlParam.js"></script>
+  
+</head>
+
+<body> 
+    <div class="video-container">
+      <div class="lds-ring" id='loading'>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <video playsinline controls> 
+        <source id="videos" src="">
+      </video>
+    </div>
+    <script>
+      var v = UrlParam.paramValues("v");
+      var element = document.getElementById('videos')
+      element.src = "https://cdn.jsdelivr.net/gh/popoYSL/adssdas/v/"+v+"/index.m3u8?key.key"
+  </script>
+  </body>
+
+</html>

@@ -9,7 +9,7 @@
         "use strict";
     
         // List of Video Vendors embeds you want to support
-        var players = ['iframe[src*="streamtape.com"]', 'iframe[src*="vimeo.com"]'];
+        var players = ['iframe[src*="video.html"]', 'iframe[src*="vimeo.com"]'];
     
         // Select videos
         var fitVids = document.querySelectorAll(players.join(","));

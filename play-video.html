@@ -6,19 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>正在加载中</title>
     <link rel="stylesheet" href="darkstyle.css">
-    <link rel="stylesheet" href="css/plyr.css" />
+    <link rel="stylesheet" href="css/plyr.min.css" />
 
     <!-- 网站显示页logo图标 -->
     <link rel="shortcut icon" href="images/favicon.ico">
 </head>
 <body>
-    <script src="https://cdn.plyr.io/3.6.12/plyr.js"></script>
+    <script src="js/hls.js"></script>
+    <script src="js/plyr.min.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="js/htmlvideoscript.js"></script>
     <nav class="flex-div">
         <div class="nav-left flex-div">
             <!-- <img src="images/menu.png" class="menu-icon"> -->
-            <a href="index.html"><img src="images/darklogo.png" class="logo"></a>
+            <a href="index.html" class="logo"></a>
         </div>
         <div class="nav-middle">
             <input type="image" img src="images/search.png" onclick="{Open()}" class="search-icon"/>
@@ -44,14 +45,7 @@
     <div class="container play-container">
         <div class="row">
             <div class="play-video">
-                <!-- <video controls autoplay>
-                    <source src="https://streamtape.com/v/vDq2O2VJOKuDXp/bananafever.bailey.brooke.part.2.mp4" type="video/mp4"> 
-                </video> -->
-                <video id="video"  playsinline controls data-poster="" class="js-player" style="width: 100%;">
-                    <source src="" type="video/mp4" />
-                    <!-- Captions are optional -->
-                    <!-- <track kind="captions" label="English captions" src="/path/to/captions.vtt" srclang="en" default /> -->
-                </video>
+                <iframe id='player' src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 <div class="tags">
                     <a href='#' onclick={OpenWinByfilter(this)}></a>
                     <!-- <a href="https://www.huya.com/wanzi">#丸子呦</a>
@@ -102,7 +96,7 @@
     <script type="text/javascript" src="js/addPlayVdeoInfo.js"></script>  
     <!-- <script type="text/javascript" src="js/raphael.min.js"></script>   -->
     <!-- <script type="text/javascript" src="js/like.js"></script> -->
-    <!-- <script type="text/javascript" src="js/resizeIframe.js"></script> -->
+    <script type="text/javascript" src="js/resizeIframe.js"></script>
     <!-- <script type="text/javascript" src="js/observer.js"></script> -->
     <script type="text/javascript" src="js/Valine.min.js"></script>
     <script type="text/javascript" src="js/av-min.js"></script>

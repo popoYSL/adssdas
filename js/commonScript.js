@@ -72,13 +72,13 @@ function OpenWinByfilter(element)
     goUrl = "search.html?s="+filter
     window.open(goUrl,'_self');
 }
-function OpenVideo(link,id,playingVideo,createTime)
+function OpenVideo(id,playingVideo,createTime)
 {
     var lists = document.getElementsByClassName('side-choose-video-list')
     var videoE = document.getElementById('video')
     if(videoE.src.search(id) == -1)
     {
-        videoE.src=link;
+        videoE.src='video.html?v='+id;;
         if(playingVideo!='')
             document.getElementById('playingVideo').innerText=playingVideo;
         if(createTime!='')
@@ -99,7 +99,6 @@ function OpenVideo(link,id,playingVideo,createTime)
           
             lists[i].classList.remove("side-video-list_click")
             lists[i].getElementsByClassName('right-box-fileindex')[0].innerHTML = i+1
-     
         }
     }
 }
@@ -230,7 +229,7 @@ window.addEventListener('resize', () => { //监听浏览器窗口大小改变
 
 function watchChangeSize (){
     var sider = document.getElementById("sidebar1");
-    var vid = document.getElementById('video')
+    var vid = document.getElementById('player')
     if (sider.offsetHeight!=vid.offsetHeight&&window.innerWidth>900)
     {
         var h = String(parseInt(vid.offsetHeight)-30)+"px";

@@ -1,4 +1,8 @@
 var v = UrlParam.paramValues("v");
+var element = document.getElementById('player')
+element.src='video.html?v='+v;
+element.addEventListener('ended', _bindEventHandler)
+
 var fristLinkId = ''
 // getJson(v).then(value => console.log(value[0])) 
 var callbacks = $.Callbacks()    
@@ -7,9 +11,7 @@ var callbacks = $.Callbacks()
 $(function(){ 
     
     $.getJSON('json/'+v+'.json',function(data){
-    var element = document.getElementById('video')
-    element.src=data[0]['link'];
-    element.addEventListener('ended', _bindEventHandler)
+  
     
     //添加回调
     callbacks.add(function(i)
@@ -18,7 +20,7 @@ $(function(){
         {
             var playingVideo = " • 正在播放："+data[i]['name'].replaceAll("'",() =>" ");
             var createTime = " • 发布时间："+data[i]["created_at"];
-            OpenVideo(data[i]['link'] , data[i]['linkid'] , playingVideo ,createTime)
+            OpenVideo(data[i]['linkid'] , playingVideo ,createTime)
         }
     }) 
    
@@ -84,7 +86,7 @@ $(function(){
         })
         $jsontip.html(strHtml);//显示处理后的数据
     }
-        OpenVideo(data[0]['link'],v,'','')
+        OpenVideo(v,'','')
     })
 })
 $(function(){
