@@ -77,7 +77,7 @@ def getLink(video_path):
         os.remove(video_path)
         os.rename(f'temp{video_path}',video_path)
 
-        cmd_transalte=f'ffmpeg -y -threads 6 -re -fflags +genpts -i "{video_path}" -s:0 1920x1080 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:0 6000k -maxrate:0 6000k -bufsize:0 8000k -r 30 -ar 44100 -g 48 -c:a aac -b:a:0 128k -s:2 1280x720 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:1 2000k -maxrate:2 2000k -bufsize:2 4000k -r 30 -ar 44100 -g 48 -c:a aac -b:a:1 128k -s:4 720x480 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:2 1000k -maxrate:4 1000k -bufsize:4 2000k -r 30 -ar 44100 -g 48 -c:a aac -b:a:2 128k -map 0:v -map 0:a -map 0:v -map 0:a -map 0:v -map 0:a -f hls -var_stream_map "v:0,a:0 v:1,a:1 v:2,a:2" -hls_segment_type mpegts -hls_enc 1 -hls_enc_key 0123456789ABCDEF0123456789ABCDEF -hls_enc_key_url "key.key" -start_number 10 -hls_time 10 -hls_list_size 0 -hls_start_number_source 1 -master_pl_name "index.m3u8" -hls_segment_filename "{file_path}/index_%v-%09d.ts" "{file_path}/index_%v.m3u8"'
+        cmd_transalte=f'ffmpeg -y -threads 6 -re -fflags +genpts -i "{video_path}" -s:0 1920x1080 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:0 6000k -maxrate:0 6000k -bufsize:0 8000k -r 30 -ar 44100 -g 48 -c:a aac -b:a:0 128k -s:2 1280x720 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:1 2000k -maxrate:2 2000k -bufsize:2 4000k -r 30 -ar 44100 -g 48 -c:a aac -b:a:1 128k -s:4 720x480 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:2 1000k -maxrate:4 1000k -bufsize:4 2000k -r 30 -ar 44100 -g 48 -s:6 640x360 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:0 330k -maxrate:0 330k -bufsize:0 350k -r 30 -ar 44100 -g 48 -c:a aac -b:a:2 128k -map 0:v -map 0:a -map 0:v -map 0:a -map 0:v -map 0:a -map 0:v -map 0:a -f hls -var_stream_map "v:0,a:0 v:1,a:1 v:2,a:2 v:3,a:3" -hls_segment_type mpegts -hls_enc 1 -hls_enc_key 0123456789ABCDEF0123456789ABCDEF -hls_enc_key_url "key.key" -start_number 10 -hls_time 10 -hls_list_size 0 -hls_start_number_source 1 -master_pl_name "index.m3u8" -hls_segment_filename "{file_path}/index_%v-%09d.ts" "{file_path}/index_%v.m3u8"'
         
         cmd(cmd_thumb)
         cmd(cmd_transalte)
@@ -142,13 +142,10 @@ def getJson(targeturl,videoDictList):
         if indexList:
             with open(os.path.join('json','index.json'),"w",encoding="utf-8") as f:
                 json.dump(indexList[::-1],f)
-    clearIndex()
 def push(path):
-    cmd(f"git add v")
+    cmd(f"git add .")
     cmd(f"git commit -m 'update'")
     cmd(f"git push")
-    cmd(f"git rm --cached -r {path}")
-    shutil.rmtree(path)
 def getHttpStatusCode(url):
     try:
         request = requests.get(url)
@@ -176,10 +173,10 @@ targeturl = 'https://www.huya.com/wanzi'
 videoDict = {}
 videoDictList = []
 
-videoDict['title'] = "哇塞哇塞"
+videoDict['title'] = "G.E.M.鄧紫棋【句號 Full Stop】Official Music Video"
 videoDict['files'] = [f for f in os.listdir('./') if f.endswith('mp4')]
 videoDict['desc'] = ['如有问题，请联系删除']
-videoDict['tags'] = ['哇塞','哇塞']
+videoDict['tags'] = ['鄧紫棋','句號']
 
 videoDictList.append(videoDict)
 videoDict = copy.deepcopy(videoDict)

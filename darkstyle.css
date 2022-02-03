@@ -113,7 +113,7 @@ nav{
     width: 100%;
     border-radius: 5px;
     min-height: 160px;
-    background-color: #ffffff;
+    
 }
 .vid-list .flex-div{
     align-items: flex-start;
@@ -128,7 +128,7 @@ nav{
 .vid-info{
     /* index中下面颜色 */
     color: var(--secondtextcolor); 
-    background-color: #ffffff;
+    
     min-height: 20px;
 }
 #vid-title
@@ -154,7 +154,7 @@ nav{
     -webkit-box-orient: vertical; 
     font-size: 1.0rem;
     min-height: 20px;
-    background-color: #ffffff;
+    
 }
 .box-vid-info{
     color: var(--secondtextcolor);
