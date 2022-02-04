@@ -77,14 +77,37 @@ def getLink(video_path):
     os.remove(video_path)
     os.rename(f'temp{video_path}',video_path)
 
-    cmd_transalte=f'ffmpeg -y -threads 6 -re -fflags +genpts -i "{video_path}" \
-        -s:0 1920x1080 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:0 6000k -maxrate:0 6000k -bufsize:0 8000k -r 30 -ar 44100 -g 48 -c:a aac -b:a:0 128k \
-        -s:2 1280x720 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:1 2000k -maxrate:2 4000k -bufsize:2 4000k -r 30 -ar 44100 -g 48 -c:a aac -b:a:1 128k \
-        -s:4 720x480 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:2 1000k -maxrate:4 2000k -bufsize:4 2000k -r 30 -ar 44100 -g 48 -c:a aac -b:a:2 128k \
-        -s:1 640x360 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:3 500k -maxrate:5 1000k -bufsize:5 1000k -r 30 -ar 44100 -g 48 -c:a aac -b:a:3 128k \
-        -s:3 426x240 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:4 340k -maxrate:7 700k -bufsize:7 700k -r 30 -ar 44100 -g 48 -c:a aac -b:a:4 128k \
-        -map 0:v -map 0:a -map 0:v -map 0:a -map 0:v -map 0:a -map 0:v -map 0:a -map 0:v -map 0:a -f hls -var_stream_map "v:0,a:0 v:1,a:1 v:2,a:2 v:3,a:3 v:4,a:4" -hls_segment_type mpegts -hls_enc 1 -hls_enc_key 0123456789ABCDEF0123456789ABCDEF -hls_enc_key_url "key.key" -start_number 10 -hls_time 10 -hls_list_size 0 -hls_start_number_source 1 -master_pl_name "index.m3u8" -hls_segment_filename "{file_path}/index_%v-%09d.ts" "{file_path}/index_%v.m3u8"'
-    
+    cmd_transalte=f'ffmpeg -i "{video_path}" \
+        -filter_complex \
+        "[0:v]split=5[v1][v2][v3][v4][v5]; \
+        [v1]scale=w=1920:h=1080[v1out]; [v2]scale=w=1280:h=720[v2out]; [v3]scale=w=854:h=480[v3out]; [v4]scale=w=640:h=360[v4out]; [v5]scale=w=426:h=240[v5out]" \
+        -map [v1out] -c:v:0 libx264 -x264-params "nal-hrd=cbr:force-cfr=1" -b:v:0 5M -maxrate:v:0 6M -minrate:v:0 3M -bufsize:v:0 12M -preset slow -g 48 -sc_threshold 0 -keyint_min 48 \
+        -map [v2out] -c:v:1 libx264 -x264-params "nal-hrd=cbr:force-cfr=1" -b:v:1 3M -maxrate:v:1 4M -minrate:v:1 1.5 bM -bufsize:v:1 8M -preset slow -g 48 -sc_threshold 0 -keyint_min 48 \
+        -map [v3out] -c:v:2 libx264 -x264-params "nal-hrd=cbr:force-cfr=1" -b:v:2 1M -maxrate:v:2 2M -minrate:v:2 0.5M -bufsize:v:2 4M -preset slow -g 48 -sc_threshold 0 -keyint_min 48 \
+        -map [v4out] -c:v:3 libx264 -x264-params "nal-hrd=cbr:force-cfr=1" -b:v:2 0.8M -maxrate:v:2 1M -minrate:v:2 0.4M -bufsize:v:2 2M -preset slow -g 48 -sc_threshold 0 -keyint_min 48 \
+        -map [v5out] -c:v:4 libx264 -x264-params "nal-hrd=cbr:force-cfr=1" -b:v:2 0.6M -maxrate:v:2 0.7M -minrate:v:2 0.3M -bufsize:v:2 1M -preset slow -g 48 -sc_threshold 0 -keyint_min 48 \
+        -map a:0 -c:a:0 aac -b:a:0 96k -ac 2 \
+        -map a:0 -c:a:1 aac -b:a:1 96k -ac 2 \
+        -map a:0 -c:a:2 aac -b:a:2 48k -ac 2 \
+        -map a:0 -c:a:3 aac -b:a:0 48k -ac 2 \
+        -map a:0 -c:a:4 aac -b:a:0 48k -ac 2 \
+        -f hls \
+        -hls_time 2 \
+        -hls_playlist_type vod \
+        -hls_flags independent_segments \
+        -hls_segment_type mpegts \
+        -hls_segment_filename "{file_path}/index_%v-%09d.ts" \
+        -hls_segment_type mpegts -hls_enc 1 -hls_enc_key 0123456789ABCDEF0123456789ABCDEF -hls_enc_key_url "key.key" \
+        -master_pl_name index.m3u8 \
+        -var_stream_map "v:0,a:0 v:1,a:1 v:2,a:2 v:3,a:3 v:4,a:4" "{file_path}/index_%v.m3u8"' 
+        
+    # cmd_transalte=f'ffmpeg -y -threads 6 -re -fflags +genpts -i "{video_path}" \
+    #     -s:0 1920x1080 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:0 6000k -maxrate:0 6000k -bufsize:0 8000k -r 30 -ar 44100 -g 48 -c:a aac -b:a:0 128k \
+    #     -s:2 1280x720 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:1 2000k -maxrate:2 4000k -bufsize:2 4000k -r 30 -ar 44100 -g 48 -c:a aac -b:a:1 128k \
+    #     -s:4 720x480 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:2 1000k -maxrate:4 2000k -bufsize:4 2000k -r 30 -ar 44100 -g 48 -c:a aac -b:a:2 128k \
+    #     -s:1 640x360 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:3 500k -maxrate:5 1000k -bufsize:5 1000k -r 30 -ar 44100 -g 48 -c:a aac -b:a:3 128k \
+    #     -s:3 426x240 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:4 340k -maxrate:7 700k -bufsize:7 700k -r 30 -ar 44100 -g 48 -c:a aac -b:a:4 128k \
+    #     -map 0:v -map 0:a -map 0:v -map 0:a -map 0:v -map 0:a -map 0:v -map 0:a -map 0:v -map 0:a -f hls -var_stream_map "v:0,a:0 v:1,a:1 v:2,a:2 v:3,a:3 v:4,a:4" -hls_segment_type mpegts -hls_enc 1 -hls_enc_key 0123456789ABCDEF0123456789ABCDEF -hls_enc_key_url "key.key" -start_number 10 -hls_time 10 -hls_list_size 0 -hls_start_number_source 1 -master_pl_name "index.m3u8" -hls_segment_filename "{file_path}/index_%v-%09d.ts" "{file_path}/index_%v.m3u8"'
     cmd(cmd_thumb)
     cmd(cmd_transalte)
     
