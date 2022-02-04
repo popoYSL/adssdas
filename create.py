@@ -177,8 +177,8 @@ def push(vpath):
     cmd(f"git add .")
     cmd(f"git commit -m 'update'")
     cmd(f"git push")
-    cmd(f"git rm -r --cached {vpath}")
     shutil.rmtree(vpath)
+    cmd(f"git rm -r --cached {vpath}")
 def getHttpStatusCode(url):
     try:
         request = requests.get(url)
