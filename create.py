@@ -171,10 +171,13 @@ def getJson(targeturl,videoDictList):
         if indexList:
             with open(os.path.join('json','index.json'),"w",encoding="utf-8") as f:
                 json.dump(indexList[::-1],f)
-def push(path):
+def push(vpath):
     cmd(f"git add .")
     cmd(f"git commit -m 'update'")
     cmd(f"git push")
+    with open('.gitignore',"a",encoding="utf-8") as f:
+        f.write(vpath)
+    shutil.rmtree(vpath)
 def getHttpStatusCode(url):
     try:
         request = requests.get(url)
