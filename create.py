@@ -177,7 +177,7 @@ def push(vpath):
     cmd(f"git add .")
     cmd(f"git commit -m 'update'")
     cmd(f"git push")
-   
+    cmd(f"git rm -r --cached {vpath}")
     shutil.rmtree(vpath)
 def getHttpStatusCode(url):
     try:
@@ -206,10 +206,10 @@ targeturl = 'https://www.huya.com/wanzi'
 videoDict = {}
 videoDictList = []
 
-videoDict['title'] = "G.E.M.鄧紫棋【句號 Full Stop】Official Music Video"
+videoDict['title'] = "郁可唯 Yisa Yu [ 路過人間 Walking by the world ] Official Music Video（電視劇《我們與惡的距離》插曲）"
 videoDict['files'] = [f for f in os.listdir('./') if f.endswith('mp4')]
 videoDict['desc'] = ['如有问题，请联系删除']
-videoDict['tags'] = ['鄧紫棋','句號']
+videoDict['tags'] = ['郁可唯','路過人間']
 
 videoDictList.append(videoDict)
 videoDict = copy.deepcopy(videoDict)
