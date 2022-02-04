@@ -70,7 +70,7 @@ def getLink(video_path):
     mkdir(root_path)
     mkdir(file_path)
         
-    cmd_thumb = f'ffmpeg -y -i "{video_path}" -vf  "thumbnail,scale=640:360:force_original_aspect_ratio=decrease,pad=640:360:(ow-iw)/2:(oh-ih)/2" -qscale 1 -frames:v 1 {file_path}/thumb.png'
+    cmd_thumb = f'ffmpeg -y -i "{video_path}" -vf  "thumbnail,scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2" -qscale 1 -frames:v 1 {file_path}/thumb.png'
     
     cmd_transalte_normal=f'ffmpeg -y -threads 6 -i "{video_path}" -c copy temp"{video_path}"'
     cmd(cmd_transalte_normal)
@@ -79,18 +79,20 @@ def getLink(video_path):
 
     cmd_transalte=f'ffmpeg -i "{video_path}" \
         -filter_complex \
-        "[0:v]split=5[v1][v2][v3][v4][v5]; \
-        [v1]scale=w=1920:h=1080[v1out]; [v2]scale=w=1280:h=720[v2out]; [v3]scale=w=854:h=480[v3out]; [v4]scale=w=640:h=360[v4out]; [v5]scale=w=426:h=240[v5out]" \
+        "[0:v]split=6[v1][v2][v3][v4][v5][v6]; \
+        [v1]scale=w=1920:h=1080[v1out]; [v2]scale=w=1280:h=720[v2out]; [v3]scale=w=854:h=480[v3out]; [v4]scale=w=640:h=360[v4out]; [v5]scale=w=426:h=240[v5out]; [v6]scale=w=192:h=144[v6out]" \
         -map [v1out] -c:v:0 libx264 -x264-params "nal-hrd=cbr:force-cfr=1" -b:v:0 5M -maxrate:v:0 6M -minrate:v:0 3M -bufsize:v:0 12M -preset slow -g 48 -sc_threshold 0 -keyint_min 48 \
         -map [v2out] -c:v:1 libx264 -x264-params "nal-hrd=cbr:force-cfr=1" -b:v:1 3M -maxrate:v:1 4M -minrate:v:1 1.5M -bufsize:v:1 8M -preset slow -g 48 -sc_threshold 0 -keyint_min 48 \
         -map [v3out] -c:v:2 libx264 -x264-params "nal-hrd=cbr:force-cfr=1" -b:v:2 1M -maxrate:v:2 2M -minrate:v:2 0.5M -bufsize:v:2 4M -preset slow -g 48 -sc_threshold 0 -keyint_min 48 \
         -map [v4out] -c:v:3 libx264 -x264-params "nal-hrd=cbr:force-cfr=1" -b:v:3 0.8M -maxrate:v:3 1M -minrate:v:3 0.4M -bufsize:v:3 2M -preset slow -g 48 -sc_threshold 0 -keyint_min 48 \
         -map [v5out] -c:v:4 libx264 -x264-params "nal-hrd=cbr:force-cfr=1" -b:v:4 0.6M -maxrate:v:4 0.7M -minrate:v:4 0.3M -bufsize:v:4 1M -preset slow -g 48 -sc_threshold 0 -keyint_min 48 \
+        -map [v6out] -c:v:5 libx264 -x264-params "nal-hrd=cbr:force-cfr=1" -b:v:5 0.3M -maxrate:v:5 0.5M -minrate:v:5 0.1M -bufsize:v:5 0.7M -preset slow -g 48 -sc_threshold 0 -keyint_min 48 \
         -map a:0 -c:a:0 aac -b:a:0 96k -ac 2 \
         -map a:0 -c:a:1 aac -b:a:1 96k -ac 2 \
         -map a:0 -c:a:2 aac -b:a:2 48k -ac 2 \
-        -map a:0 -c:a:3 aac -b:a:0 48k -ac 2 \
-        -map a:0 -c:a:4 aac -b:a:0 48k -ac 2 \
+        -map a:0 -c:a:3 aac -b:a:3 48k -ac 2 \
+        -map a:0 -c:a:4 aac -b:a:4 48k -ac 2 \
+        -map a:0 -c:a:5 aac -b:a:5 24k -ac 2 \
         -f hls \
         -hls_time 2 \
         -hls_playlist_type vod \
@@ -99,7 +101,7 @@ def getLink(video_path):
         -hls_segment_filename "{file_path}/index_%v-%09d.ts" \
         -hls_segment_type mpegts -hls_enc 1 -hls_enc_key 0123456789ABCDEF0123456789ABCDEF -hls_enc_key_url "key.key" \
         -master_pl_name index.m3u8 \
-        -var_stream_map "v:0,a:0 v:1,a:1 v:2,a:2 v:3,a:3 v:4,a:4" "{file_path}/index_%v.m3u8"' 
+        -var_stream_map "v:0,a:0 v:1,a:1 v:2,a:2 v:3,a:3 v:4,a:4 v:5,a:5" "{file_path}/index_%v.m3u8"' 
 
     # cmd_transalte=f'ffmpeg -y -threads 6 -re -fflags +genpts -i "{video_path}" \
     #     -s:0 1920x1080 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:0 6000k -maxrate:0 6000k -bufsize:0 8000k -r 30 -ar 44100 -g 48 -c:a aac -b:a:0 128k \
@@ -172,11 +174,12 @@ def getJson(targeturl,videoDictList):
             with open(os.path.join('json','index.json'),"w",encoding="utf-8") as f:
                 json.dump(indexList[::-1],f)
 def push(vpath):
+    with open('.gitignore',"a",encoding="utf-8") as f:
+        f.write(vpath+'\n')
     cmd(f"git add .")
     cmd(f"git commit -m 'update'")
     cmd(f"git push")
-    with open('.gitignore',"a",encoding="utf-8") as f:
-        f.write(vpath+'\n')
+    cmd(f"git rm -r --cached {vpath}")
     shutil.rmtree(vpath)
     cmd(f"git rm -r --cached {vpath}")
 def getHttpStatusCode(url):
@@ -206,8 +209,8 @@ targeturl = 'https://www.huya.com/wanzi'
 videoDict = {}
 videoDictList = []
 
-videoDict['title'] = "[4K] 180708 모모랜드 MOMOLAND 배앰 BAAM 낸시 NANCY @ MV 조회수 2500만 달성 게릴라 By Sleeppage"
-videoDict['files'] = [f for f in os.listdir('./') if f.endswith('mp4')]
+videoDict['title'] = "擦玻璃.擦玻璃"
+videoDict['files'] = [f for f in os.listdir('./') if f.endswith('flv')]
 videoDict['desc'] = ['如有问题，请联系删除']
 videoDict['tags'] = ['MOMOLAND','NANCY']
 
