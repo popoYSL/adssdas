@@ -82,7 +82,7 @@ def getLink(video_path):
         "[0:v]split=5[v1][v2][v3][v4][v5]; \
         [v1]scale=w=1920:h=1080[v1out]; [v2]scale=w=1280:h=720[v2out]; [v3]scale=w=854:h=480[v3out]; [v4]scale=w=640:h=360[v4out]; [v5]scale=w=426:h=240[v5out]" \
         -map [v1out] -c:v:0 libx264 -x264-params "nal-hrd=cbr:force-cfr=1" -b:v:0 5M -maxrate:v:0 6M -minrate:v:0 3M -bufsize:v:0 12M -preset slow -g 48 -sc_threshold 0 -keyint_min 48 \
-        -map [v2out] -c:v:1 libx264 -x264-params "nal-hrd=cbr:force-cfr=1" -b:v:1 3M -maxrate:v:1 4M -minrate:v:1 1.5 bM -bufsize:v:1 8M -preset slow -g 48 -sc_threshold 0 -keyint_min 48 \
+        -map [v2out] -c:v:1 libx264 -x264-params "nal-hrd=cbr:force-cfr=1" -b:v:1 3M -maxrate:v:1 4M -minrate:v:1 1.5M -bufsize:v:1 8M -preset slow -g 48 -sc_threshold 0 -keyint_min 48 \
         -map [v3out] -c:v:2 libx264 -x264-params "nal-hrd=cbr:force-cfr=1" -b:v:2 1M -maxrate:v:2 2M -minrate:v:2 0.5M -bufsize:v:2 4M -preset slow -g 48 -sc_threshold 0 -keyint_min 48 \
         -map [v4out] -c:v:3 libx264 -x264-params "nal-hrd=cbr:force-cfr=1" -b:v:2 0.8M -maxrate:v:2 1M -minrate:v:2 0.4M -bufsize:v:2 2M -preset slow -g 48 -sc_threshold 0 -keyint_min 48 \
         -map [v5out] -c:v:4 libx264 -x264-params "nal-hrd=cbr:force-cfr=1" -b:v:2 0.6M -maxrate:v:2 0.7M -minrate:v:2 0.3M -bufsize:v:2 1M -preset slow -g 48 -sc_threshold 0 -keyint_min 48 \
@@ -100,7 +100,7 @@ def getLink(video_path):
         -hls_segment_type mpegts -hls_enc 1 -hls_enc_key 0123456789ABCDEF0123456789ABCDEF -hls_enc_key_url "key.key" \
         -master_pl_name index.m3u8 \
         -var_stream_map "v:0,a:0 v:1,a:1 v:2,a:2 v:3,a:3 v:4,a:4" "{file_path}/index_%v.m3u8"' 
-        
+
     # cmd_transalte=f'ffmpeg -y -threads 6 -re -fflags +genpts -i "{video_path}" \
     #     -s:0 1920x1080 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:0 6000k -maxrate:0 6000k -bufsize:0 8000k -r 30 -ar 44100 -g 48 -c:a aac -b:a:0 128k \
     #     -s:2 1280x720 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:1 2000k -maxrate:2 4000k -bufsize:2 4000k -r 30 -ar 44100 -g 48 -c:a aac -b:a:1 128k \
