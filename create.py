@@ -81,7 +81,7 @@ def getLink(video_path):
         -s:0 1920x1080 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:0 6000k -maxrate:0 6000k -bufsize:0 8000k -r 30 -ar 44100 -g 48 -c:a aac -b:a:0 128k \
         -s:2 1280x720 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:1 2000k -maxrate:2 2000k -bufsize:2 4000k -r 30 -ar 44100 -g 48 -c:a aac -b:a:1 128k \
         -s:4 720x480 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:2 1000k -maxrate:4 1000k -bufsize:4 2000k -r 30 -ar 44100 -g 48 -c:a aac -b:a:3 128k \
-        -s: 640x360 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:3 330k -maxrate:v 330k -bufsize:v 350k -r 30 -ar 44100 -g 48 -c:a aac -b:a:4 128k \
+        -s:7 480x360 -ac 2 -vcodec libx264 -profile:v main -pix_fmt yuv420p -b:v:3 330k -maxrate:7 330k -bufsize:7 350k -r 30 -ar 44100 -g 48 -c:a aac -b:a:4 128k \
         -map 0:v -map 0:a -map 0:v -map 0:a -map 0:v -map 0:a -map 0:v -map 0:a -f hls -var_stream_map "v:0,a:0 v:1,a:1 v:2,a:2 v:3,a:3" -hls_segment_type mpegts -hls_enc 1 -hls_enc_key 0123456789ABCDEF0123456789ABCDEF -hls_enc_key_url "key.key" -start_number 10 -hls_time 10 -hls_list_size 0 -hls_start_number_source 1 -master_pl_name "index.m3u8" -hls_segment_filename "{file_path}/index_%v-%09d.ts" "{file_path}/index_%v.m3u8"'
     
     cmd(cmd_thumb)
