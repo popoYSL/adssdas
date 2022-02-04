@@ -69,7 +69,7 @@ function OpenWinFunction()
 function OpenWinByfilter(element)
 {
     filter = element.innerHTML
-    goUrl = "search.html?s="+filter
+    goUrl = "search.html?s="+filter.replace("#","")
     window.open(goUrl,'_self');
 }
 function OpenVideo(id,playingVideo,createTime)

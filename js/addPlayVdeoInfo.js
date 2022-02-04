@@ -31,7 +31,7 @@ $(function(){
     var lens = tags.length
     for(var i=0;i<lens;i++)
     {
-        tagsHtml += "<a href='#' onclick={OpenWinByfilter(this)}>"+tags[i]+"</a>"
+        tagsHtml += "<a href='#' onclick={OpenWinByfilter(this)}>#"+tags[i]+"</a>"
     }
     $tagstip.html(tagsHtml);
 
