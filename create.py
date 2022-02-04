@@ -172,11 +172,12 @@ def getJson(targeturl,videoDictList):
             with open(os.path.join('json','index.json'),"w",encoding="utf-8") as f:
                 json.dump(indexList[::-1],f)
 def push(vpath):
+    with open('.gitignore',"a",encoding="utf-8") as f:
+        f.write(vpath+'\n')
     cmd(f"git add .")
     cmd(f"git commit -m 'update'")
     cmd(f"git push")
-    with open('.gitignore',"a",encoding="utf-8") as f:
-        f.write(vpath)
+   
     shutil.rmtree(vpath)
 def getHttpStatusCode(url):
     try:
@@ -206,7 +207,7 @@ videoDict = {}
 videoDictList = []
 
 videoDict['title'] = "G.E.M.鄧紫棋【句號 Full Stop】Official Music Video"
-videoDict['files'] = [f for f in os.listdir('./') if f.endswith('flv')]
+videoDict['files'] = [f for f in os.listdir('./') if f.endswith('mp4')]
 videoDict['desc'] = ['如有问题，请联系删除']
 videoDict['tags'] = ['鄧紫棋','句號']
 
