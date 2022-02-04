@@ -202,7 +202,7 @@ targeturl = 'https://www.huya.com/wanzi'
 videoDict = {}
 videoDictList = []
 
-videoDict['title'] = "擦玻璃"
+videoDict['title'] = "G.E.M.鄧紫棋【句號 Full Stop】Official Music Video"
 videoDict['files'] = [f for f in os.listdir('./') if f.endswith('flv')]
 videoDict['desc'] = ['如有问题，请联系删除']
 videoDict['tags'] = ['鄧紫棋','句號']
